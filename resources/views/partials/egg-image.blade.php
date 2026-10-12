@@ -1,0 +1,1 @@
+<div class="flex h-28 items-center justify-center rounded-xl bg-[#f3f8ff]"><div class="grid w-36 grid-cols-5 gap-1.5 rounded-b-xl bg-[#e8ded1] p-2">@for($i=0;$i<10;$i++)<span class="h-5 w-5 rounded-full border border-[#d5c8b6] bg-gradient-to-br from-white to-[#f2e3d0]"></span>@endfor</div></div>

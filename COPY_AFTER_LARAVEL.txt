@@ -1,0 +1,16 @@
+1. Create a fresh Laravel application first:
+   laravel new EggProductionInventorySystem
+
+2. Close VS Code if needed, then extract this ZIP.
+
+3. Copy the contents of this ZIP into the fresh Laravel application folder.
+   Choose Replace/Merge when Windows asks.
+
+4. Keep Laravel's default files that are not present in this package, especially:
+   artisan
+   public/index.php
+   bootstrap/cache/*
+   config/* files that are not replaced by this package
+   vendor/ (created by Composer)
+
+5. Open the merged folder in VS Code and follow README.md.
