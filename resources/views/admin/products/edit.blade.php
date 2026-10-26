@@ -1,1 +1,57 @@
-@extends('layouts.admin') @section('title','Edit Product') @section('page-title','Edit Product') @section('page-subtitle','Update egg product information') @section('content')<div class="card max-w-4xl p-7"><form method="POST" action="{{route('admin.products.update',$product)}}" class="grid gap-5 md:grid-cols-2">@csrf @method('PUT')<div><label class="text-sm text-slate-500">Product Name</label><input class="input mt-1" name="product_name" value="{{$product->product_name}}" required></div><div><label class="text-sm text-slate-500">Egg Type</label><input class="input mt-1" name="egg_type" value="{{$product->egg_type}}" required></div><div><label class="text-sm text-slate-500">Size / Grade</label><input class="input mt-1" name="size_grade" value="{{$product->size_grade}}" required></div><div><label class="text-sm text-slate-500">Unit</label><input class="input mt-1" name="unit" value="{{$product->unit}}" required></div><div><label class="text-sm text-slate-500">Price</label><input class="input mt-1" type="number" step="0.01" name="price" value="{{$product->price}}" required></div><div><label class="text-sm text-slate-500">Reorder Level</label><input class="input mt-1" type="number" name="reorder_level" value="{{$product->reorder_level}}" required></div><div><label class="text-sm text-slate-500">Status</label><select class="input mt-1" name="status"><option value="active" @selected($product->status==='active')>Active</option><option value="inactive" @selected($product->status==='inactive')>Inactive</option></select></div><div class="md:col-span-2 flex gap-3"><button class="btn-primary">Save Changes</button><a class="btn-secondary" href="{{route('admin.products')}}">Cancel</a></div></form></div>@endsection
+@extends('layouts.admin') 
+@section('title','Edit Product') 
+@section('page-title','Edit Product') 
+@section('page-subtitle','Update egg product information') 
+@section('content')
+
+<div class="card max-w-4xl p-7">
+    <form method="POST" action="{{route('admin.products.update',$product)}}" class="grid gap-5 md:grid-cols-2">
+        @csrf 
+        @method('PUT')
+        
+        <div>
+            <label class="text-sm text-slate-500">Product Name</label>
+            <input class="input mt-1" name="product_name" value="{{$product->product_name}}" required>
+        </div>
+        
+        <div>
+            <label class="text-sm text-slate-500">Egg Type</label>
+            <input class="input mt-1" name="egg_type" value="{{$product->egg_type}}" required>
+        </div>
+        
+        <div>
+            <label class="text-sm text-slate-500">Size / Grade</label>
+            <input class="input mt-1" name="size_grade" value="{{$product->size_grade}}" required>
+        </div>
+        
+        <div>
+            <label class="text-sm text-slate-500">Unit</label>
+            <input class="input mt-1" name="unit" value="{{$product->unit}}" required>
+        </div>
+        
+        <div>
+            <label class="text-sm text-slate-500">Price</label>
+            <input class="input mt-1" type="number" step="0.01" name="price" value="{{$product->price}}" required>
+        </div>
+        
+        <div>
+            <label class="text-sm text-slate-500">Reorder Level</label>
+            <input class="input mt-1" type="number" name="reorder_level" value="{{$product->reorder_level}}" required>
+        </div>
+        
+        <div>
+            <label class="text-sm text-slate-500">Status</label>
+            <select class="input mt-1" name="status">
+                <option value="active" @selected($product->status==='active')>Active</option>
+                <option value="inactive" @selected($product->status==='inactive')>Inactive</option>
+            </select>
+        </div>
+        
+        <div class="md:col-span-2 flex gap-3">
+            <button class="btn-primary">Save Changes</button>
+            <a class="btn-secondary" href="{{route('admin.products')}}">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@endsection

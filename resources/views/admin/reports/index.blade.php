@@ -1,3 +1,112 @@
-@extends('layouts.admin') @section('title','Reports') @section('page-title','Reports') @section('page-subtitle','Generate basic production and inventory reports') @section('content')
-<form method="GET" class="card no-print grid gap-5 p-7 md:grid-cols-4"><div><label class="text-sm text-slate-500">Report Type</label><select class="input mt-1" name="type"><option value="production" @selected($type==='production')>Production Report</option><option value="inventory" @selected($type==='inventory')>Inventory Report</option></select></div><div><label class="text-sm text-slate-500">From</label><input class="input mt-1" type="date" name="from" value="{{$from}}"></div><div><label class="text-sm text-slate-500">To</label><input class="input mt-1" type="date" name="to" value="{{$to}}"></div><div><label class="text-sm text-slate-500">Product</label><select class="input mt-1" name="product_id"><option value="">All Products</option>@foreach($products as $p)<option value="{{$p->id}}" @selected((string)$productId===(string)$p->id)>{{$p->product_name}}</option>@endforeach</select></div><div class="md:col-span-4 flex gap-3"><button class="btn-primary">Generate</button><button type="button" onclick="window.print()" class="btn-secondary">Print</button></div></form>
-<div class="print-area card mt-6 p-8"><div class="border-b border-[#d8e5f3] pb-5"><h2 class="text-2xl font-bold">Egg Production & Inventory Report</h2><p class="text-sm text-slate-500">{{$from}} to {{$to}}</p></div><div class="mt-6 grid gap-4 md:grid-cols-5">@foreach([['Total Production',$totalProduction],['Saleable Eggs',$saleableEggs],['Damaged Eggs',$damagedEggs],['Rejected Eggs',$rejectedEggs],['Current Inventory',$currentInventory]] as $s)<div><div class="text-sm text-slate-500">{{$s[0]}}</div><div class="text-2xl font-bold">{{number_format($s[1])}}</div></div>@endforeach</div>@if($type==='production')<div class="mt-8 overflow-x-auto"><table class="min-w-full text-sm"><thead class="bg-[#f8fbff] text-left text-slate-500"><tr><th class="px-5 py-4">Date</th><th class="px-5 py-4">Product</th><th class="px-5 py-4">Produced</th><th class="px-5 py-4">Saleable</th><th class="px-5 py-4">Damaged</th><th class="px-5 py-4">Rejected</th></tr></thead><tbody>@foreach($productions as $r)<tr class="border-t border-[#eef3f8]"><td class="px-5 py-4">{{$r->production_date->format('m/d/Y')}}</td><td class="px-5 py-4">{{$r->product->product_name}}</td><td class="px-5 py-4">{{$r->quantity_produced}}</td><td class="px-5 py-4">{{$r->saleable_quantity}}</td><td class="px-5 py-4">{{$r->damaged_quantity}}</td><td class="px-5 py-4">{{$r->rejected_quantity}}</td></tr>@endforeach</tbody></table></div>@else<div class="mt-8 overflow-x-auto"><table class="min-w-full text-sm"><thead class="bg-[#f8fbff] text-left text-slate-500"><tr><th class="px-5 py-4">Date</th><th class="px-5 py-4">Product</th><th class="px-5 py-4">Type</th><th class="px-5 py-4">Qty</th><th class="px-5 py-4">Reason</th></tr></thead><tbody>@foreach($transactions as $r)<tr class="border-t border-[#eef3f8]"><td class="px-5 py-4">{{$r->transaction_date->format('m/d/Y')}}</td><td class="px-5 py-4">{{$r->product->product_name}}</td><td class="px-5 py-4 capitalize">{{$r->transaction_type}}</td><td class="px-5 py-4">{{$r->quantity}}</td><td class="px-5 py-4">{{$r->reason}}</td></tr>@endforeach</tbody></table></div>@endif</div>@endsection
+@extends('layouts.admin') 
+@section('title','Reports') 
+@section('page-title','Reports') 
+@section('page-subtitle','Generate basic production and inventory reports') 
+@section('content')
+
+<form method="GET" class="card no-print grid gap-5 p-7 md:grid-cols-4">
+    <div>
+        <label class="text-sm text-slate-500">Report Type</label>
+        <select class="input mt-1" name="type">
+            <option value="production" @selected($type==='production')>Production Report</option>
+            <option value="inventory" @selected($type==='inventory')>Inventory Report</option>
+        </select>
+    </div>
+    
+    <div>
+        <label class="text-sm text-slate-500">From</label>
+        <input class="input mt-1" type="date" name="from" value="{{$from}}">
+    </div>
+    
+    <div>
+        <label class="text-sm text-slate-500">To</label>
+        <input class="input mt-1" type="date" name="to" value="{{$to}}">
+    </div>
+    
+    <div>
+        <label class="text-sm text-slate-500">Product</label>
+        <select class="input mt-1" name="product_id">
+            <option value="">All Products</option>
+            @foreach($products as $p)
+                <option value="{{$p->id}}" @selected((string)$productId===(string)$p->id)>{{$p->product_name}}</option>
+            @endforeach
+        </select>
+    </div>
+    
+    <div class="md:col-span-4 flex gap-3">
+        <button class="btn-primary">Generate</button>
+        <button type="button" onclick="window.print()" class="btn-secondary">Print</button>
+    </div>
+</form>
+
+<div class="print-area card mt-6 p-8">
+    <div class="border-b border-[#d8e5f3] pb-5">
+        <h2 class="text-2xl font-bold">Egg Production & Inventory Report</h2>
+        <p class="text-sm text-slate-500">{{$from}} to {{$to}}</p>
+    </div>
+    
+    <div class="mt-6 grid gap-4 md:grid-cols-5">
+        @foreach([['Total Production',$totalProduction],['Saleable Eggs',$saleableEggs],['Damaged Eggs',$damagedEggs],['Rejected Eggs',$rejectedEggs],['Current Inventory',$currentInventory]] as $s)
+            <div>
+                <div class="text-sm text-slate-500">{{$s[0]}}</div>
+                <div class="text-2xl font-bold">{{number_format($s[1])}}</div>
+            </div>
+        @endforeach
+    </div>
+    
+    @if($type==='production')
+        <div class="mt-8 overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead class="bg-[#f8fbff] text-left text-slate-500">
+                    <tr>
+                        <th class="px-5 py-4">Date</th>
+                        <th class="px-5 py-4">Product</th>
+                        <th class="px-5 py-4">Produced</th>
+                        <th class="px-5 py-4">Saleable</th>
+                        <th class="px-5 py-4">Damaged</th>
+                        <th class="px-5 py-4">Rejected</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($productions as $r)
+                        <tr class="border-t border-[#eef3f8]">
+                            <td class="px-5 py-4">{{$r->production_date->format('m/d/Y')}}</td>
+                            <td class="px-5 py-4">{{$r->product->product_name}}</td>
+                            <td class="px-5 py-4">{{$r->quantity_produced}}</td>
+                            <td class="px-5 py-4">{{$r->saleable_quantity}}</td>
+                            <td class="px-5 py-4">{{$r->damaged_quantity}}</td>
+                            <td class="px-5 py-4">{{$r->rejected_quantity}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <div class="mt-8 overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead class="bg-[#f8fbff] text-left text-slate-500">
+                    <tr>
+                        <th class="px-5 py-4">Date</th>
+                        <th class="px-5 py-4">Product</th>
+                        <th class="px-5 py-4">Type</th>
+                        <th class="px-5 py-4">Qty</th>
+                        <th class="px-5 py-4">Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($transactions as $r)
+                        <tr class="border-t border-[#eef3f8]">
+                            <td class="px-5 py-4">{{$r->transaction_date->format('m/d/Y')}}</td>
+                            <td class="px-5 py-4">{{$r->product->product_name}}</td>
+                            <td class="px-5 py-4 capitalize">{{$r->transaction_type}}</td>
+                            <td class="px-5 py-4">{{$r->quantity}}</td>
+                            <td class="px-5 py-4">{{$r->reason}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+</div>
+
+@endsection

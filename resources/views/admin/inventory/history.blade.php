@@ -1,1 +1,45 @@
-@extends('layouts.admin') @section('title','Inventory History') @section('page-title','Inventory History') @section('page-subtitle','Trace previous stock movements') @section('content')<div class="card overflow-hidden"><div class="border-b border-[#d8e5f3] p-6"><h2 class="text-xl font-bold">Inventory History</h2><p class="mt-1 text-sm text-slate-500">Every addition, deduction, and adjustment is retained as a separate transaction.</p></div><div class="overflow-x-auto"><table class="min-w-full text-sm"><thead class="bg-[#f8fbff] text-left text-slate-500"><tr><th class="px-6 py-4">Date</th><th class="px-6 py-4">Product</th><th class="px-6 py-4">Type</th><th class="px-6 py-4">Quantity</th><th class="px-6 py-4">Reason</th><th class="px-6 py-4">Recorded By</th></tr></thead><tbody>@foreach($transactions as $t)<tr class="border-t border-[#eef3f8]"><td class="px-6 py-4">{{$t->transaction_date->format('m/d/Y')}}</td><td class="px-6 py-4 font-semibold">{{$t->product->product_name}}</td><td class="px-6 py-4 capitalize">{{$t->transaction_type}}</td><td class="px-6 py-4">{{$t->quantity}}</td><td class="px-6 py-4">{{$t->reason}}</td><td class="px-6 py-4">{{$t->recorder->name}}</td></tr>@endforeach</tbody></table></div><div class="p-5">{{$transactions->links()}}</div></div>@endsection
+@extends('layouts.admin') 
+@section('title','Inventory History') 
+@section('page-title','Inventory History') 
+@section('page-subtitle','Trace previous stock movements') 
+@section('content')
+
+<div class="card overflow-hidden">
+    <div class="border-b border-[#d8e5f3] p-6">
+        <h2 class="text-xl font-bold">Inventory History</h2>
+        <p class="mt-1 text-sm text-slate-500">Every addition, deduction, and adjustment is retained as a separate transaction.</p>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+            <thead class="bg-[#f8fbff] text-left text-slate-500">
+                <tr>
+                    <th class="px-6 py-4">Date</th>
+                    <th class="px-6 py-4">Product</th>
+                    <th class="px-6 py-4">Type</th>
+                    <th class="px-6 py-4">Quantity</th>
+                    <th class="px-6 py-4">Reason</th>
+                    <th class="px-6 py-4">Recorded By</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($transactions as $t)
+                    <tr class="border-t border-[#eef3f8]">
+                        <td class="px-6 py-4">{{$t->transaction_date->format('m/d/Y')}}</td>
+                        <td class="px-6 py-4 font-semibold">{{$t->product->product_name}}</td>
+                        <td class="px-6 py-4 capitalize">{{$t->transaction_type}}</td>
+                        <td class="px-6 py-4">{{$t->quantity}}</td>
+                        <td class="px-6 py-4">{{$t->reason}}</td>
+                        <td class="px-6 py-4">{{$t->recorder->name}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="p-5">
+        {{$transactions->links()}}
+    </div>
+</div>
+
+@endsection
