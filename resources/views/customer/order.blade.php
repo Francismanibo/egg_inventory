@@ -25,7 +25,14 @@
                                 $onHand = (int) $product->current_stock;
                             @endphp
                             <article class="product-card card p-5 {{ $available <= 0 ? 'bg-slate-50' : '' }}" data-price="{{ (float) $product->price }}">
-                                <div class="flex h-28 items-center justify-center rounded-2xl bg-[#f8fbff] text-5xl">🥚</div>
+                                <div class="h-40 overflow-hidden rounded-2xl border border-[#e8f1ff] bg-[#f8fbff]">
+                                    <img
+                                        src="{{ $product->image_path ? asset('storage/' . $product->image_path) : asset('images/egg-hero.jpg') }}"
+                                        alt="{{ $product->product_name }}"
+                                        class="h-full w-full object-cover"
+                                        loading="lazy"
+                                    >
+                                </div>
                                 <div class="mt-4 flex flex-wrap items-start justify-between gap-2">
                                     <h2 class="text-lg font-bold">{{ $product->product_name }}</h2>
                                     @if ($available > 0)

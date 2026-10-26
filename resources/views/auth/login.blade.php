@@ -13,9 +13,6 @@
                 Egg Production System
             </p>
             <h1 class="mt-3 text-center text-3xl font-bold text-[#163765]">Welcome back</h1>
-            <p class="mt-3 text-center text-sm leading-6 text-slate-500">
-                Customers, Admins, and Users sign in here. Your account type determines which pages you can access.
-            </p>
 
             @if (session('success'))
                 <div class="mt-6 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800">
@@ -73,7 +70,7 @@
                         value="1"
                         @checked(old('remember'))
                     >
-                    Remember me (Admin/User accounts)
+                    Remember me
                 </label>
 
                 <button type="submit" class="btn-primary w-full justify-center py-3.5">
@@ -85,9 +82,7 @@
                 Ordering eggs for the first time?
                 <a href="{{ route('customer.register') }}" class="font-semibold text-[#2878d4] hover:underline">Create a customer account</a>
             </p>
-            <p class="mt-5 text-center text-xs leading-5 text-slate-400">
-                Admin and User accounts must be created by an administrator. Customers can register using the link above.
-            </p>
+
             <a href="{{ route('home') }}" class="mt-5 block text-center text-sm font-semibold text-slate-500 hover:text-[#2878d4]">Back to Home</a>
         </section>
     </main>

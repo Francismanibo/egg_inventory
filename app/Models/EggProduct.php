@@ -17,6 +17,7 @@ class EggProduct extends Model
         'price',
         'reorder_level',
         'status',
+        'image_path',
     ];
 
     protected $casts = [

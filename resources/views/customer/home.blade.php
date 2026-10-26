@@ -22,8 +22,7 @@
 
                 <p class="mt-6 max-w-lg text-lg leading-8 text-slate-600">
                     Find the eggs you need with a convenient ordering
-                    experience. Place your order, wait for Admin review,
-                    and track its progress until completion.
+                    experience.
                 </p>
 
                 <div class="mt-8 flex flex-wrap gap-3">
@@ -78,7 +77,7 @@
                 </div>
             </div>
 
-            {{-- REALISTIC EGG PHOTO --}}
+
             <div class="relative min-h-[300px] overflow-hidden bg-[#e9f3ff] sm:min-h-[420px] lg:min-h-full">
 
                 <img
@@ -101,7 +100,7 @@
         </section>
 
 
-        {{-- HOW IT WORKS --}}
+
         <section class="mt-10 grid gap-5 md:grid-cols-3">
 
             @foreach ([
@@ -112,13 +111,13 @@
                 ],
                 [
                     'number' => '02',
-                    'title' => 'Admin Review',
-                    'description' => 'Your order begins as Pending while the administrator reviews it.',
+                    'title' => 'Track Delivery',
+                    'description' => 'Check your order status as it progresses from approval to completion.',
                 ],
                 [
                     'number' => '03',
-                    'title' => 'Track Delivery',
-                    'description' => 'Check your order status as it progresses from approval to completion.',
+                    'title' => 'Deliver to Your Doorstep',
+                    'description' => 'Have your eggs delivered directly to your doorstep.',
                 ],
             ] as $feature)
 
@@ -182,8 +181,8 @@
                             <div class="overflow-hidden rounded-2xl bg-[#f8fbff]">
 
                                 <img
-                                    src="{{ !empty($product->image)
-                                        ? asset('storage/' . $product->image)
+                                    src="{{ !empty($product->image_path)
+                                        ? asset('storage/' . $product->image_path)
                                         : asset('images/egg-hero.jpg') }}"
                                     alt="{{ $product->product_name }}"
                                     class="h-56 w-full object-cover"

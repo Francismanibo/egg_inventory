@@ -9,7 +9,7 @@
                 <p class="text-sm font-bold uppercase tracking-wider text-[#2878d4]">Customer account</p>
                 <h1 class="mt-2 text-4xl font-bold">My Orders</h1>
                 <p class="mt-3 max-w-2xl leading-7 text-slate-600">
-                    View your order history and current delivery status. Refresh this page to see the latest update after the administrator processes an order.
+                    View your order history and current delivery status.
                 </p>
             </div>
             <a href="{{ route('customer.order') }}" class="btn-primary inline-flex">Order Eggs</a>
